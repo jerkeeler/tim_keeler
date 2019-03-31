@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tim Keeler - Conductor, Countertenor</title>
+    <meta name="description" content="Tim Keeler is a Washington D.C. based countertenor and conductor who is currently pursuing is DMA at University of Maryland after spending an outstanding year with Chanticleer in San Francsico.">
+    {% include 'tim_app/partials/header.html' %}
+</head>
+<body>
+    <div class="black-background"></div>
+    <div class="headshot invisible"></div>
+    <div class="center-container">
+        <div class="center-div">
+            <a href="{% url 'about' %}" class="button btn-main invisible btn-top">About</a>
+            <a href="{% url 'calendar' %}" class="button btn-main invisible btn-right">Calendar</a>
+            <a href="{% url 'contact' %}" class="button btn-main invisible btn-bottom">Contact</a>
+            <a href="{% url 'media' %}" class="button btn-main invisible btn-left">Media</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static "tim_app/tim.js" %}"></script>
+</body>
+</html>

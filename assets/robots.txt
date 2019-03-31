@@ -1,0 +1,4 @@
+User-agent: *
+Sitemap: https://timkeeler.net/robo/sitemap.xml
+Disallow: /healthcheck
+Disallow: /admin

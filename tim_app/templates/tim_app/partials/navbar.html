@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="{% url 'home' %}" class="navbar-item">TK</a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+            <a href="{% url 'about' %}" class="navbar-item">About</a>
+            <a href="{% url 'calendar' %}" class="navbar-item">Calendar</a>
+            <a href="{% url 'contact' %}" class="navbar-item">Contact</a>
+            <a href="{% url 'media' %}" class="navbar-item">Media</a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tim Keeler - {% block title %}Conductor, Countertenor{% endblock %}</title>
+    <meta name="description" content="{% block description %}Tim Keeler is a Washington D.C. based countertenor and conductor who is currently pursuing is DMA at University of Maryland after spending an outstanding year with Chanticleer in San Francsico.{% endblock %}">
+    {% include 'tim_app/partials/header.html' %}
+</head>
+<body>
+{% include 'tim_app/partials/navbar.html' %}
+{% block content %}
+{% endblock %}
+{% include 'tim_app/partials/footer.html' %}
+
+<script type="text/javascript" src="{% static "tim_app/tim.js" %}"></script>
+{% block extrascripts %}
+{% endblock %}
+</body>
+</html>

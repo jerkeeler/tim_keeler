@@ -10,25 +10,40 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import logging
 import os
 
 from tim_keeler.config import get_config
 
+logger = logging.getLogger(__name__)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-settings = get_config('settings')
+ASSET_DIR = os.path.join(BASE_DIR, 'assets')
+DIST_DIR = os.path.join(BASE_DIR, 'dist')
+SETTINGS = get_config('settings')
+
+APP_ENVIRONMENT = SETTINGS['app']['environment']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = settings['app']['secret_key']
+SECRET_KEY = SETTINGS['app']['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = settings['app']['debug']
+DEBUG = SETTINGS['app']['debug']
 
-ALLOWED_HOSTS = settings['app']['allowed_hosts']
+ALLOWED_HOSTS = SETTINGS['app']['allowed_hosts']
 
+ADMINS = [(admin['name'], admin['email'],) for admin in SETTINGS['admins']]
+
+EMAIL_HOST = SETTINGS['email']['host']
+EMAIL_PORT = SETTINGS['email']['port']
+EMAIL_HOST_USER = SETTINGS['email']['username']
+EMAIL_HOST_PASSWORD = SETTINGS['email']['password']
+EMAIL_USE_TLS = SETTINGS['email']['tls']
+EMAIL_SUBJECT_PREFIX = f'[{APP_ENVIRONMENT.upper()} - {SETTINGS["app"]["name"]}] '
 
 # Application definition
 
@@ -39,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tim_app.apps.TimAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +94,7 @@ WSGI_APPLICATION = 'tim_keeler.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '{}.sqlite3'.format(settings['db']['name'])),
+        'NAME': os.path.join(BASE_DIR, '{}.sqlite3'.format(SETTINGS['db']['name'])),
     }
 }
 
@@ -118,5 +134,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
+STATIC_ROOT = DIST_DIR
 STATIC_URL = '/assets/'
+
+STATICFILES_DIRS = [
+    ASSET_DIR,
+]
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+logger.info('Finished loading settings')

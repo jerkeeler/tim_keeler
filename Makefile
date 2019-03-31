@@ -3,3 +3,6 @@ requirements:
 
 build:
 	./bin/make_build.sh
+
+clean:
+	./bin/make_clean.sh

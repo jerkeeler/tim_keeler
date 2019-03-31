@@ -3,3 +3,6 @@
 conf
 __pycache__
 .idea
+vendor
+node_modules
+dist

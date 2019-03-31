@@ -1,0 +1,51 @@
+{% extends "tim_app/layouts/main.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <h1 class="title">Contact</h1>
+                <form action="{% url 'contact' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="field">
+                        <label class="label" for="{{ form.name.id_for_label }}">Name:</label>
+                        <div class="control">
+                            {{ form.name }}
+                            {{ form.name.errors }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="{{ form.email.id_for_label }}">Email (Optional):</label>
+                        <div class="control">
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="{{ form.subject.id_for_label }}">Subject:</label>
+                        <div class="control">
+                            <div class="select">
+                                {{ form.subject }}
+                            </div>
+                            {{ form.subject.errors }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="{{ form.message.id_for_label }}">Message:</label>
+                        <div class="control">
+                            {{ form.message }}
+                            {{ form.message.errors }}
+                        </div>
+                    </div>
+                    <div id="recaptcha"></div>
+                    <div class="hidden" id="_recaptcha_site_key">{{ site_key }}</div>
+                    <button type="submit" class="button is-primary contact-button" disabled id="contactSubmit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascripts %}
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoadCallback&render=explicit" async defer></script>
+{% endblock %}

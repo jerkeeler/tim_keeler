@@ -1,4 +1,6 @@
 django
+ipdb
 fabric
 pip-tools
+requests
 toml

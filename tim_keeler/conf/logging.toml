@@ -1,0 +1,51 @@
+version = 1
+
+[formatters.simple]
+format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+[filters.require_debug_true]
+'()' = 'django.utils.log.RequireDebugTrue'
+
+[filters.require_debug_false]
+'()' = 'django.utils.log.RequireDebugFalse'
+
+[handlers]
+[handlers.console]
+class = 'logging.StreamHandler'
+level = 'DEBUG'
+filters = [
+	'require_debug_true',
+]
+formatter = 'simple'
+
+[handlers.info_file_handler]
+class = 'tim_app.logging.GroupWriteRotatingFileHandler'
+level = 'INFO'
+formatter = 'simple'
+filename = '/var/log/timkeeler/info.log'
+maxBytes = 10485760  # 10MB
+backupCount = 10
+encoding = 'utf8'
+filters = [
+	'require_debug_false',
+]
+
+[handlers.error_file_handler]
+class = 'tim_app.logging.GroupWriteRotatingFileHandler'
+level = 'ERROR'
+formatter = 'simple'
+filename = '/var/log/timkeeler/error.log'
+maxBytes = 10485760  # 10MB
+backupCount = 10
+encoding = 'utf8'
+filters = [
+	'require_debug_false',
+]
+
+[root]
+level = 'INFO'
+handlers = [
+	'console',
+	'info_file_handler',
+	'error_file_handler',
+]
