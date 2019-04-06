@@ -7,4 +7,5 @@ urlpatterns = [
     path('calendar', views.calendar, name='calendar'),
     path('contact', views.contact, name='contact'),
     path('media', views.media, name='media'),
+    path('healthcheck', views.healthcheck),
 ]

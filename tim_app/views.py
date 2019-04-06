@@ -1,6 +1,8 @@
 import logging
 
-from django.http import HttpRequest, HttpResponse
+from django.db import connection
+from django.db.utils import OperationalError
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
@@ -52,3 +54,16 @@ def contact(request: HttpRequest) -> HttpResponse:
     else:
         form = ContactForm()
     return render(request, 'tim_app/contact.html', {'form': form, 'site_key': SETTINGS['captcha']['site_key']})
+
+
+@require_GET
+def healthcheck(request: HttpRequest) -> HttpResponse:
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("select 1")
+            one = cursor.fetchone()[0]
+            if one != 1:
+                raise OperationalError
+    except OperationalError:
+        return JsonResponse({'healthy': False})
+    return JsonResponse({'healthy': True})
