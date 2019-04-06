@@ -1,11 +1,13 @@
+import logging
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from tim_app.forms import ContactForm, is_captcha_valid
-from tim_keeler.config import get_config
+from tim_keeler.settings import SETTINGS
 
-settings = get_config('settings')
+logger = logging.getLogger(__name__)
 
 
 @require_GET
@@ -32,12 +34,15 @@ def media(request: HttpRequest) -> HttpResponse:
 def contact(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = ContactForm(request.POST)
-        if form.is_valid() and is_captcha_valid(request):
+        captcha_valid = is_captcha_valid(request)
+        if captcha_valid and form.is_valid():
             contact_model = form.save(commit=False)
             contact_model.ip = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR'))
             contact_model.save()
             contact_model.deliver()
             return render(request, 'tim_app/thanks.html')
+        elif not captcha_valid:
+            return render(request, 'tim_app/thanks.html')
     else:
         form = ContactForm()
-    return render(request, 'tim_app/contact.html', {'form': form, 'site_key': settings['captcha']['site_key']})
+    return render(request, 'tim_app/contact.html', {'form': form, 'site_key': SETTINGS['captcha']['site_key']})

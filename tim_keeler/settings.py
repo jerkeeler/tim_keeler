@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import logging
+import logging.config
 import os
 
 from tim_keeler.config import get_config
 
+logging.config.dictConfig(get_config('logging'))
 logger = logging.getLogger(__name__)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

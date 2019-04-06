@@ -16,7 +16,10 @@ def is_captcha_valid(request: HttpRequest) -> bool:
         logger.warning('Attempted to validate ReCaptcha on non-post request')
         return False
 
-    recaptcha_response = request.POST['g-recaptcha-response']
+    recaptcha_response = request.POST.get('g-recaptcha-response')
+    if recaptcha_response is None:
+        return False or DEBUG
+
     verify_response = requests.post(RECAPTCHA_URL, data={
         'response': recaptcha_response,
         'secret': SETTINGS['captcha']['secret_key'],

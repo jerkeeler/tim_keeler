@@ -1,6 +1,7 @@
 django
 ipdb
 fabric
+gunicorn
 pip-tools
 requests
 toml
