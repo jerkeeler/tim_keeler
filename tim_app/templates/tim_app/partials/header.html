@@ -8,3 +8,7 @@
 
 <link href="{% static 'vendor/vendor.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'tim_app/tim.css' %}" rel="stylesheet" type="text/css">
+
+{% if not DEBUG %}
+    {% include 'tim_app/partials/analytics.html' %}
+{% endif %}
