@@ -6,12 +6,9 @@
         <h1 class="title">About</h1>
         <div class="bio">
             <img class="image img-responsive img-400 img-rounded pull-left" src="{% static 'img/keeler_headshot.png' %}">
-
-            <p>Countertenor Tim Keeler is sought after as a performer, a conductor, and an educator. He has performed with some of the finest vocal ensembles in America, including New York Polyphony, The Clarion Choir, the Choir of Trinity Wall Street, and Chanticleer. He is in demand as a soloist up and down the east coast, appearing regularly in the Bach Vespers series at Holy Trinity Lutheran Church in New York City, as well as with TENET, New York's preeminent early music ensemble. Also an avid proponent of new and challenging repertoire, Tim is a core member of Ekmeles, a vocal ensemble based in New York City and dedicated to contemporary, avant-garde, and infrequently-performed vocal repertoire.</p>
-
-            <p>Tim is currently pursuing a DMA in Choral Conducting at the University of Maryland, where he conducts the Men’s Choir and studies with Dr. Edward Maclary. As an educator, Tim has directed the choirs at the Special Music School High School in Manhattan and worked closely with the Young People's Chorus of New York City as a vocal coach and satellite school conductor. He was also the choral conductor for Juilliard's new Summer Performing Arts program - a two-week intensive summer course in Geneva, Switzerland.</p>
-
-            <p>Tim holds a BA in Music from Princeton University with certificates in Vocal Performance and Computer Science, an MPhil in Music and Science from Cambridge University, and an MM in Choral Conducting from the University of Michigan. While studying with Dr. Jerry Blackstone at the University of Michigan, Tim served as assistant conductor of the Grammy award-winning UMS Choral Union, preparing the choir for performances with Leonard Slatkin and the Detroit Symphony Orchestra. His dissertation at Cambridge explored statistical methods used in natural language processing and unsupervised machine learning as applied to musical phrase detection and segmentation.</p>
+            {% for paragraph in bio %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

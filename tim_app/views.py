@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from tim_app.forms import ContactForm, is_captcha_valid
+from tim_app.models import Bio
 from tim_keeler.settings import SETTINGS
 
 logger = logging.getLogger(__name__)
@@ -17,7 +18,12 @@ def home(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 def about(request: HttpRequest) -> HttpResponse:
-    return render(request, 'tim_app/about.html')
+    bio = Bio.objects.filter(active=True).first()
+    if bio is None:
+        paragraphs = []
+    else:
+        paragraphs = [p.strip() for p in bio.bio.split('\n') if p.strip()]
+    return render(request, 'tim_app/about.html', {'bio': paragraphs})
 
 
 @require_GET

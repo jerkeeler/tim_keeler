@@ -38,3 +38,8 @@ class Contact(TimeStampModel):
             f'Sent at: {self.time_sent}\n\n\n'
             f'{self.message}'
         )
+
+
+class Bio(TimeStampModel):
+    active = models.BooleanField(default=False)
+    bio = models.TextField()
