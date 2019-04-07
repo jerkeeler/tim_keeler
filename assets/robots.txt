@@ -1,4 +1,4 @@
 User-agent: *
-Sitemap: https://timkeeler.net/robo/sitemap.xml
+Sitemap: https://timkeeler.net/sitemap.xml
 Disallow: /healthcheck
 Disallow: /admin
