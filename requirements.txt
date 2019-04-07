@@ -16,6 +16,7 @@ cryptography==2.6.1       # via fabric, paramiko
 decorator==4.4.0          # via ipython, traitlets
 django==2.1.7
 fabric==2.4.0
+gunicorn==19.9.0
 idna==2.8                 # via requests
 invoke==1.2.0             # via fabric
 ipdb==0.12
